@@ -1,0 +1,54 @@
+{
+  "name": "Country",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Country name"
+    },
+    "flag_emoji": {
+      "type": "string",
+      "description": "Country flag emoji"
+    },
+    "region": {
+      "type": "string",
+      "enum": [
+        "Asia",
+        "Europe",
+        "Africa",
+        "North America",
+        "South America",
+        "Oceania",
+        "Middle East"
+      ],
+      "description": "Geographic region"
+    },
+    "us_embassy_url": {
+      "type": "string",
+      "description": "Official U.S. Embassy/Consulate website URL"
+    },
+    "us_embassy_city": {
+      "type": "string",
+      "description": "City where U.S. Embassy is located"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description or guidance for immigrants from this country"
+    },
+    "population": {
+      "type": "number",
+      "description": "Country population (optional, for sorting)"
+    },
+    "key_visa_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Common visa types for this country (e.g., H-1B, F-1, Family-based)"
+    }
+  },
+  "required": [
+    "name",
+    "us_embassy_url"
+  ]
+}
