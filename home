@@ -1,21 +1,12 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Globe2, Search, ArrowRight, Building2, BookOpen, Users } from 'lucide-react';
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Immigration Supports</title>
-</head>
-<body>
-   import React, { useState } from 'react';
-   import { Link } from 'react-router-dom';
-   import { useQuery } from '@tanstack/react-query';
-   import { base44 } from '@/api/base44Client';
-   import { createPageUrl } from '@/utils';
-   import { Input } from '@/components/ui/input';
-   import { Button } from '@/components/ui/button';
-   import { Globe2, Search, ArrowRight, Building2, BookOpen, Users } from 'lucide-react';
-
-</head>
-<body>
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
@@ -258,3 +249,4 @@ export default function Home() {
       </div>
     </div>
   );
+}
