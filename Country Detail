@@ -1,0 +1,204 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { createPageUrl } from '@/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ExternalLink, ArrowLeft, Building2, FileText, Phone, MapPin, CheckCircle } from 'lucide-react';
+
+export default function CountryDetail() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const countryId = urlParams.get('id');
+
+  const { data: country, isLoading } = useQuery({
+    queryKey: ['country', countryId],
+    queryFn: async () => {
+      const countries = await base44.entities.Country.filter({ id: countryId });
+      return countries[0];
+    },
+    enabled: !!countryId,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600" />
+      </div>
+    );
+  }
+
+  if (!country) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Country not found</h2>
+          <Link to={createPageUrl('Home')}>
+            <Button>Return Home</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-pink-50 to-purple-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <Link to={createPageUrl('Home')} className="inline-flex items-center text-orange-100 hover:text-white mb-6 transition-colors font-medium">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            ← Back to All Countries
+          </Link>
+          
+          <div className="flex items-center gap-6 mb-6">
+            <div className="text-8xl">{country.flag_emoji || '🌍'}</div>
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-3 drop-shadow-lg flex items-center gap-4">
+                {country.flag_emoji} {country.name}
+              </h1>
+              {country.region && (
+                <div className="inline-block px-5 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold shadow-lg">
+                  {country.region}
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {country.description && (
+            <p className="text-xl text-blue-100 max-w-3xl">
+              {country.description}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Embassy Card - Primary CTA */}
+        <Card className="mb-8 border-4 border-orange-300 shadow-2xl bg-gradient-to-br from-white to-orange-50 transform hover:scale-[1.02] transition-all duration-300">
+          <CardHeader className="bg-gradient-to-r from-orange-100 via-pink-100 to-purple-100 border-b-4 border-orange-200">
+            <div className="flex items-center gap-3">
+              <div className="bg-gradient-to-br from-orange-400 to-pink-500 p-3 rounded-xl shadow-lg">
+                <Building2 className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl md:text-3xl bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent font-bold">
+                🏛️ U.S. Embassy in {country.name}
+              </CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="p-8">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="text-6xl">{country.flag_emoji}</div>
+              <div className="flex-1">
+                {country.us_embassy_city && (
+                  <div className="flex items-center gap-2 text-slate-600 mb-3">
+                    <MapPin className="w-5 h-5 text-orange-500" />
+                    <span className="text-lg font-medium">U.S. Embassy in {country.us_embassy_city}</span>
+                  </div>
+                )}
+                
+                <p className="text-slate-700 text-lg leading-relaxed">
+                  Visit the official U.S. Embassy website for {country.flag_emoji} {country.name} to access visa information, immigration procedures, and consular services.
+                </p>
+              </div>
+            </div>
+            
+            <a 
+              href={country.us_embassy_url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block w-full"
+            >
+              <Button className="w-full bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 hover:from-orange-600 hover:via-pink-600 hover:to-purple-700 text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] font-semibold">
+                <ExternalLink className="w-5 h-5 mr-2" />
+                Visit {country.flag_emoji} U.S. Embassy Website
+              </Button>
+            </a>
+            
+            <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mt-4">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              Official U.S. Government Resource
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Visa Types */}
+        {country.key_visa_types && country.key_visa_types.length > 0 && (
+          <Card className="mb-8 shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <FileText className="w-6 h-6 text-indigo-600" />
+                Common Visa Categories
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {country.key_visa_types.map((visa, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-slate-700 font-medium">{visa}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Quick Resources Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">General U.S. Immigration</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-slate-600 mb-4">
+                Learn about immigration pathways, visa categories, and the application process.
+              </p>
+              <Link to={createPageUrl('USAImmigration')}>
+                <Button variant="outline" className="w-full">
+                  View Resources
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
+            <CardHeader>
+              <CardTitle className="text-lg">Other Countries</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-slate-600 mb-4">
+                Explore immigration options for other destination countries.
+              </p>
+              <Link to={createPageUrl('OtherCountries')}>
+                <Button variant="outline" className="w-full">
+                  Explore Options
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Important Notice */}
+        <Card className="bg-amber-50 border-amber-200 shadow-lg">
+          <CardContent className="p-6">
+            <div className="flex gap-4">
+              <div className="text-4xl">⚠️</div>
+              <div>
+                <h3 className="font-bold text-amber-900 text-lg mb-2">Important Notice</h3>
+                <p className="text-amber-800 leading-relaxed">
+                  This website provides links to official government resources only. 
+                  We do not provide immigration advice or legal services. 
+                  For personalized guidance, please consult with a licensed immigration attorney 
+                  or contact the U.S. Embassy directly.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
