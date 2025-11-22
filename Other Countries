@@ -1,0 +1,202 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, ExternalLink, Globe2, Building2 } from 'lucide-react';
+
+export default function OtherCountries() {
+  const countries = [
+    {
+      name: 'Canada',
+      flag: '🇨🇦',
+      description: 'Express Entry, Provincial Nominee Programs, and skilled worker immigration pathways.',
+      url: 'https://www.canada.ca/en/immigration-refugees-citizenship.html',
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      name: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Skilled Worker visa, Global Talent visa, and other UK immigration routes.',
+      url: 'https://www.gov.uk/browse/visas-immigration',
+      color: 'from-blue-600 to-blue-700'
+    },
+    {
+      name: 'Australia',
+      flag: '🇦🇺',
+      description: 'Skilled migration, employer sponsorship, and business innovation programs.',
+      url: 'https://immi.homeaffairs.gov.au/',
+      color: 'from-green-600 to-green-700'
+    },
+    {
+      name: 'Germany',
+      flag: '🇩🇪',
+      description: 'EU Blue Card, skilled worker visa, and job seeker visa options.',
+      url: 'https://www.make-it-in-germany.com/en/',
+      color: 'from-gray-700 to-gray-800'
+    },
+    {
+      name: 'New Zealand',
+      flag: '🇳🇿',
+      description: 'Skilled Migrant Category, work to residence, and entrepreneurial pathways.',
+      url: 'https://www.immigration.govt.nz/',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      name: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Employment Pass, S Pass, and PermanentResident application pathways.',
+      url: 'https://www.ica.gov.sg/',
+      color: 'from-red-600 to-red-700'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-teal-50 via-blue-50 to-purple-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-green-500 via-teal-500 via-blue-600 to-purple-600 text-white py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_rgba(255,255,255,0.2)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,_rgba(255,255,255,0.2)_0%,_transparent_50%)]" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <Link to={createPageUrl('Home')} className="inline-flex items-center text-green-100 hover:text-white mb-6 transition-colors font-medium">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            ← Back Home
+          </Link>
+          
+          <div className="flex items-center gap-6 mb-6">
+            <Globe2 className="w-20 h-20 text-yellow-300 animate-spin" style={{animationDuration: '20s'}} />
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-2 drop-shadow-lg">The World is Your Home! 🌍</h1>
+              <div className="text-2xl text-green-100 font-light">Explore Amazing Opportunities Worldwide</div>
+            </div>
+          </div>
+          
+          <p className="text-xl text-white max-w-3xl leading-relaxed font-light bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            ✨ Beyond America, discover incredible immigration pathways around the globe. Each destination offers unique opportunities for your new beginning.
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Countries Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {countries.map((country, index) => (
+            <a
+              key={index}
+              href={country.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group"
+            >
+              <Card className="h-full shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 hover:border-orange-300 bg-white">
+                <CardContent className="p-8">
+                  <div className="flex items-start gap-6 mb-4">
+                    <div className="text-6xl flex-shrink-0 transform group-hover:scale-110 transition-transform">
+                      {country.flag}
+                    </div>
+                    <div className="flex-1">
+                      <CardTitle className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors flex items-center gap-3">
+                        {country.flag} {country.name}
+                      </CardTitle>
+                      <p className="text-slate-600 leading-relaxed mb-4">
+                        {country.description}
+                      </p>
+                      <div className="flex items-center text-orange-600 font-medium text-sm group-hover:text-orange-700">
+                        <Building2 className="w-4 h-4 mr-2" />
+                        Explore {country.name}
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
+        </div>
+
+        {/* Coming Soon Section */}
+        <Card className="shadow-xl bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-200">
+          <CardHeader>
+            <CardTitle className="text-2xl flex items-center gap-3">
+              <Globe2 className="w-8 h-8 text-purple-600" />
+              More Countries Coming Soon
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-slate-700 text-lg mb-4 leading-relaxed">
+              We're continuously expanding our resources to include immigration information for more countries. 
+              Check back regularly for updates, or explore the general resources available for your country of interest.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+              {['🇫🇷 France', '🇯🇵 Japan', '🇳🇱 Netherlands', '🇸🇪 Sweden', '🇨🇭 Switzerland', '🇦🇪 UAE', '🇮🇪 Ireland', '🇳🇴 Norway'].map((country, idx) => (
+                <div key={idx} className="p-3 bg-white rounded-lg shadow-sm border border-slate-200">
+                  <div className="text-2xl mb-1">{country.split(' ')[0]}</div>
+                  <div className="text-xs text-slate-600">{country.split(' ')[1]}</div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Comparison Section */}
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Why Consider Other Countries?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-3">⏱️</div>
+                <CardTitle className="text-lg">Faster Processing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-600">
+                  Some countries offer expedited immigration pathways with shorter processing times than others.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-3">🎯</div>
+                <CardTitle className="text-lg">Skill-Based Systems</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-600">
+                  Many countries use points-based systems that reward education, work experience, and language skills.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-3">🌍</div>
+                <CardTitle className="text-lg">Diverse Opportunities</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-600">
+                  Different countries offer unique lifestyle, economic, and career opportunities suited to different goals.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Important Notice */}
+        <Card className="bg-amber-50 border-amber-200 shadow-lg mt-12">
+          <CardContent className="p-6">
+            <div className="flex gap-4">
+              <div className="text-4xl">ℹ️</div>
+              <div>
+                <h3 className="font-bold text-amber-900 text-lg mb-2">Research Thoroughly</h3>
+                <p className="text-amber-800 leading-relaxed">
+                  Each country has unique immigration requirements, pathways, and regulations. 
+                  Always verify information on official government websites and consider consulting 
+                  with licensed immigration professionals for your specific situation.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
