@@ -249,4 +249,14 @@ export default function Home() {
       </div>
     </div>
   );
-}
+}<!DOCTYPE html>
+<html>
+<head>
+    <title>Immigration Supports</title>
+</head>
+<body>
+    <h1>Site Under Construction</h1>
+    <p>We are just finishing up the final deployment steps for your awesome new site!</p>
+    <p>Please check back soon.</p>
+</body>
+</html>
