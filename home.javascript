@@ -118,11 +118,3 @@ export default function Home() {
               <div className="bg-white/30 backdrop-blur-sm p-4 rounded-2xl">
                 <Building2 className="w-8 h-8 text-white" />
               </div>I appreciate you reaching out, but I don't have any prior response to continue from. This appears to be the start of our conversation.
-
-If you have a project you'd like help with, please share:
-- What you're trying to build or fix
-- Any specific requirements or features you need
-- The technology stack you'd like to use
-- Any code or context you'd like me to reference
-
-I'm ready to help create a comprehensive solution for you!
