@@ -1,0 +1,264 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft, ExternalLink, FileText, Users, Briefcase, GraduationCap, Heart, Shield, Home, Clock } from 'lucide-react';
+
+export default function USAImmigration() {
+  const resources = [
+    {
+      icon: FileText,
+      title: 'USCIS Official Website',
+      description: 'United States Citizenship and Immigration Services - Your primary resource for all immigration matters.',
+      url: 'https://www.uscis.gov/',
+      color: 'blue'
+    },
+    {
+      icon: Users,
+      title: 'Visa Information',
+      description: 'Learn about different visa categories, requirements, and application procedures.',
+      url: 'https://travel.state.gov/content/travel/en/us-visas.html',
+      color: 'indigo'
+    },
+    {
+      icon: Shield,
+      title: 'Green Card Information',
+      description: 'Everything you need to know about obtaining lawful permanent residency.',
+      url: 'https://www.uscis.gov/green-card',
+      color: 'green'
+    },
+    {
+      icon: Home,
+      title: 'Citizenship & Naturalization',
+      description: 'Information on becoming a U.S. citizen through naturalization.',
+      url: 'https://www.uscis.gov/citizenship',
+      color: 'purple'
+    }
+  ];
+
+  const visaCategories = [
+    {
+      icon: Briefcase,
+      title: 'Employment-Based',
+      description: 'H-1B, L-1, EB-1/2/3 visas for workers and professionals',
+      examples: ['H-1B Specialty Occupation', 'L-1 Intracompany Transfer', 'EB-2 Advanced Degree']
+    },
+    {
+      icon: GraduationCap,
+      title: 'Student Visas',
+      description: 'F-1, M-1, J-1 visas for academic and exchange programs',
+      examples: ['F-1 Academic Student', 'M-1 Vocational Student', 'J-1 Exchange Visitor']
+    },
+    {
+      icon: Heart,
+      title: 'Family-Based',
+      description: 'IR, F-1/2/3/4 visas for family reunification',
+      examples: ['Immediate Relatives', 'Family Preference', 'K-1 Fiancé(e) Visa']
+    },
+    {
+      icon: Clock,
+      title: 'Temporary Visas',
+      description: 'B-1/B-2, tourist, business, and temporary work visas',
+      examples: ['B-1 Business Visitor', 'B-2 Tourist', 'O-1 Extraordinary Ability']
+    }
+  ];
+
+  const colorClasses = {
+    blue: 'bg-blue-100 text-blue-600',
+    indigo: 'bg-indigo-100 text-indigo-600',
+    green: 'bg-green-100 text-green-600',
+    purple: 'bg-purple-100 text-purple-600'
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-blue-50 to-white">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-red-600 via-blue-600 to-blue-800 text-white py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1569008593571-a98b326533e0?w=1600')] bg-cover bg-center opacity-10" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <Link to={createPageUrl('Home')} className="inline-flex items-center text-red-100 hover:text-white mb-6 transition-colors font-medium">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            ← Back Home
+          </Link>
+          
+          <div className="flex items-center gap-6 mb-6">
+            <div className="text-8xl animate-pulse">🇺🇸</div>
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-2 drop-shadow-lg">Welcome to America! ⭐</h1>
+              <div className="text-2xl text-red-100 font-light">Your Dream. Your Future. Your Home.</div>
+            </div>
+          </div>
+          
+          <p className="text-xl text-white max-w-3xl leading-relaxed font-light bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            🎯 Everything you need to start your journey to the United States. Official resources, trusted guidance, and a warm welcome await you.
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Primary Resources */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Official Government Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resources.map((resource, index) => {
+              const Icon = resource.icon;
+              return (
+                <a
+                  key={index}
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <Card className="h-full shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-transparent hover:border-blue-200">
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div className={`p-3 rounded-xl ${colorClasses[resource.color]}`}>
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                      </div>
+                      <CardTitle className="text-xl mt-4 group-hover:text-blue-600 transition-colors">
+                        {resource.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-slate-600 leading-relaxed">
+                        {resource.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Visa Categories */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Immigration Pathways</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {visaCategories.map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <Card key={index} className="shadow-lg">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="p-2 bg-slate-100 rounded-lg">
+                        <Icon className="w-6 h-6 text-slate-700" />
+                      </div>
+                      <CardTitle className="text-xl">{category.title}</CardTitle>
+                    </div>
+                    <p className="text-slate-600">{category.description}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {category.examples.map((example, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-700">
+                          <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                          {example}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Process Overview */}
+        <Card className="mb-12 shadow-xl">
+          <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+            <CardTitle className="text-2xl">General Immigration Process</CardTitle>
+          </CardHeader>
+          <CardContent className="p-8">
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                  1
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900 mb-2">Determine Eligibility</h3>
+                  <p className="text-slate-600">
+                    Research which visa category or immigration pathway fits your situation. 
+                    Review requirements on the USCIS website.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                  2
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900 mb-2">Contact U.S. Embassy</h3>
+                  <p className="text-slate-600">
+                    Visit your country's U.S. Embassy or Consulate website for specific application procedures 
+                    and appointment scheduling.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                  3
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900 mb-2">Prepare Documentation</h3>
+                  <p className="text-slate-600">
+                    Gather all required documents, forms, and supporting evidence as specified by USCIS 
+                    and the embassy.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold">
+                  4
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-slate-900 mb-2">Submit Application</h3>
+                  <p className="text-slate-600">
+                    File your application according to instructions, pay required fees, and attend any 
+                    scheduled interviews or biometrics appointments.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Important Notice */}
+        <Card className="bg-amber-50 border-amber-200 shadow-lg mb-8">
+          <CardContent className="p-6">
+            <div className="flex gap-4">
+              <div className="text-4xl">⚠️</div>
+              <div>
+                <h3 className="font-bold text-amber-900 text-lg mb-2">This is Not Legal Advice</h3>
+                <p className="text-amber-800 leading-relaxed mb-3">
+                  The information provided here is for general guidance only and does not constitute legal advice. 
+                  Immigration law is complex and changes frequently.
+                </p>
+                <p className="text-amber-800 leading-relaxed">
+                  For personalized advice about your specific situation, please consult with a licensed immigration attorney 
+                  or contact USCIS directly.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* CTA */}
+        <div className="text-center">
+          <Link to={createPageUrl('Home')}>
+            <Button className="bg-blue-600 hover:bg-blue-700 px-8 py-6 text-lg rounded-xl shadow-lg">
+              Find Your Country's U.S. Embassy
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
